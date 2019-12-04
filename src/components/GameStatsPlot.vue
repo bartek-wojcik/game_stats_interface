@@ -1,5 +1,6 @@
 <template>
   <GChart
+    v-if="gameStats.length"
     type="LineChart"
     :data="chartData"
     :options="chartOptions"
