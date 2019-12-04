@@ -16,6 +16,7 @@
       return {
         gameStats: [],
         chartOptions: {
+          height: 700,
           title: 'Date vs Users',
           curveType: 'function',
           trendlines: {
