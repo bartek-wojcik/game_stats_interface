@@ -38,14 +38,20 @@
     computed: {
       ...mapGetters([
         'currentGame',
+        'dates',
       ]),
       chartData: function () {
-        const header = [['Date', 'Users']];
-        return header.concat(this.gameStats.filter(
+        const data = this.gameStats.filter(
           record => record.game === this.currentGame.id
         ).map(
-          record => [new Date(record.date), record.users])
+          record => [new Date(record.date), record.users]
+        ).filter(
+          record => record[0] >= this.dates[0] && record[0] <= this.dates[1]
         );
+        if (!data.length) {
+          return []
+        }
+        return [['Date', 'Users']].concat(data);
       }
     },
     methods: {
