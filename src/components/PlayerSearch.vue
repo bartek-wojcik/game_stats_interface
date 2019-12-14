@@ -34,7 +34,7 @@
         }
       },
       getPlayersByNickname: function () {
-        this.$http.get(`player?search=${this.searchValue}`).then((response) => this.players = response.data)
+        this.$http.get(`players?search=${this.searchValue}`).then((response) => this.players = response.data)
       }
     },
     computed: {
