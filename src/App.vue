@@ -7,6 +7,9 @@
         <date-selector/>
       </div>
       <test-plot/>
+      <player-search/>
+      <player-search player-type="comparePlayer"/>
+      <player-stats-plot/>
     </section>
   </div>
 </template>
@@ -16,10 +19,14 @@
   import TestPlot from "./components/GameStatsPlot";
   import DateSelector from "./components/DateSelector";
   import GameSelector from "./components/GameSelector";
+  import PlayerSearch from "./components/PlayerSearch";
+  import PlayerStatsPlot from "./components/PlayerStatsPlot";
 
   export default {
     name: 'app',
     components: {
+      PlayerStatsPlot,
+      PlayerSearch,
       GameSelector,
       DateSelector,
       TestPlot,

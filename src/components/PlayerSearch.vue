@@ -1,0 +1,59 @@
+<template>
+  <b-field label="Search player">
+    <b-autocomplete
+      v-model="searchValue"
+      placeholder="player nickname"
+      :data="players"
+      field="nickname"
+      @input="refreshPlayers"
+      @select="option => player = option">
+    </b-autocomplete>
+  </b-field>
+</template>
+
+<script>
+
+  export default {
+    name: "PlayerSearch",
+    props: {
+      playerType: {
+        type: String,
+        default: 'currentPlayer'
+      }
+    },
+    data: () => {
+      return {
+        searchValue: '',
+        players: [],
+      }
+    },
+    methods: {
+      refreshPlayers: function () {
+        if (this.searchValue.length) {
+          this.getPlayersByNickname()
+        }
+      },
+      getPlayersByNickname: function () {
+        this.$http.get(`player?search=${this.searchValue}`).then((response) => this.players = response.data)
+      }
+    },
+    computed: {
+      player: {
+        get () {
+          return this.$store.state[this.playerType]
+        },
+        set (value) {
+          if (this.playerType === 'comparePlayer') {
+            this.$store.commit(`updateComparePlayer`, value)
+          } else {
+            this.$store.commit(`updateCurrentPlayer`, value)
+          }
+        }
+      },
+    },
+  }
+</script>
+
+<style scoped>
+
+</style>
