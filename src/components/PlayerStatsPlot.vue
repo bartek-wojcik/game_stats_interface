@@ -9,6 +9,7 @@
 
 <script>
   import {mapGetters} from "vuex";
+  import moment from 'moment'
 
   export default {
     name: "PlayerStatsPlot",
@@ -17,8 +18,7 @@
         playerStats: [],
         chartOptions: {
           height: 700,
-          title: 'Date vs Users',
-          curveType: 'function',
+          title: 'Date vs Playtime',
           trendlines: {
             0: {
               type: 'linear',
@@ -27,11 +27,6 @@
               labelInLegend: 'Trend',
               tooltip: false,
             }
-          },
-          vAxis: {
-            viewWindow: {
-              min: 0,
-            },
           },
         },
       }
@@ -44,7 +39,7 @@
       ]),
       chartData: function () {
         const data = this.playerStats.map(
-          record => [new Date(record.date), record.time]
+          record => [new Date(record.date), moment.duration(record.time).asMinutes()]
         ).filter(
           record => record[0] >= this.dates[0] && record[0] <= this.dates[1]
         );
@@ -56,14 +51,19 @@
     },
     methods: {
       getPlayerStats: function () {
-        if (this.currentPlayer && this.currentGame) {
+        if (this.currentPlayer && this.currentGame && this.currentPlayer.id && this.currentGame.id ) {
           this.$http.get(`playerstats?game=${this.currentGame.id}&player=${this.currentPlayer.id}`).then((response) => this.playerStats = response.data)
         }
       }
     },
-    beforeMount() {
-      this.getPlayerStats();
-    }
+    watch: {
+      'currentGame.id': function () {
+        this.getPlayerStats();
+      },
+      'currentPlayer.id': function () {
+        this.getPlayerStats();
+      }
+    },
   }
 </script>
 
