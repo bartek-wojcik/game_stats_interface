@@ -17,6 +17,7 @@
         gameStats: [],
         chartOptions: {
           height: 700,
+          width: window.outerWidth,
           title: 'Date vs Users',
           curveType: 'function',
           trendlines: {
@@ -42,9 +43,7 @@
         'dates',
       ]),
       chartData: function () {
-        const data = this.gameStats.filter(
-          record => record.game === this.currentGame.id
-        ).map(
+        const data = this.gameStats.map(
           record => [new Date(record.date), record.users]
         ).filter(
           record => record[0] >= this.dates[0] && record[0] <= this.dates[1]
@@ -57,11 +56,15 @@
     },
     methods: {
       getGameStats: function () {
-        this.$http.get('globalstats').then((response) => this.gameStats = response.data)
+        if (this.currentGame && this.currentGame.id) {
+          this.$http.get(`globalstats?game=${this.currentGame.id}`).then((response) => this.gameStats = response.data)
+        }
       }
     },
-    beforeMount() {
-      this.getGameStats();
+    watch: {
+      'currentGame.id': function () {
+        this.getGameStats();
+      }
     }
   }
 </script>

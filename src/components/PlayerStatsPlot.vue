@@ -18,6 +18,7 @@
         playerStats: [],
         chartOptions: {
           height: 700,
+          width: window.outerWidth,
           title: 'Date vs Playtime',
           trendlines: {
             0: {

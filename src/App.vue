@@ -1,39 +1,18 @@
 <template>
   <div id="app">
     <navbar/>
-    <section class="section">
-      <div class="columns">
-        <div class="column">
-          <game-selector/>
-        </div>
-        <div class="column">
-          <date-selector/>
-        </div>
-      </div>
-      <test-plot/>
-      <player-search/>
-      <player-search player-type="comparePlayer"/>
-      <player-stats-plot/>
-    </section>
+    <cards/>
   </div>
 </template>
 
 <script>
   import Navbar from "./components/Navbar";
-  import TestPlot from "./components/GameStatsPlot";
-  import DateSelector from "./components/DateSelector";
-  import GameSelector from "./components/GameSelector";
-  import PlayerSearch from "./components/PlayerSearch";
-  import PlayerStatsPlot from "./components/PlayerStatsPlot";
+  import Cards from "./components/Cards";
 
   export default {
     name: 'app',
     components: {
-      PlayerStatsPlot,
-      PlayerSearch,
-      GameSelector,
-      DateSelector,
-      TestPlot,
+      Cards,
       Navbar,
     },
     beforeMount() {
@@ -47,7 +26,7 @@
   @import "~bulma/sass/utilities/_all";
 
   // Set your colors
-  $primary: #8c67ef;
+  $primary: #000000;
   $primary-invert: findColorInvert($primary);
   $twitter: #4099FF;
   $twitter-invert: findColorInvert($twitter);
