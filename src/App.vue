@@ -2,9 +2,13 @@
   <div id="app">
     <navbar/>
     <section class="section">
-      <div class="field is-grouped">
-        <game-selector/>
-        <date-selector/>
+      <div class="columns">
+        <div class="column">
+          <game-selector/>
+        </div>
+        <div class="column">
+          <date-selector/>
+        </div>
       </div>
       <test-plot/>
       <player-search/>
