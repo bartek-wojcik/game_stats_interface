@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <navbar/>
-    <cards/>
+    <tabs/>
   </div>
 </template>
 
 <script>
   import Navbar from "./components/Navbar";
-  import Cards from "./components/Cards";
+  import Tabs from "./components/Tabs";
 
   export default {
     name: 'app',
     components: {
-      Cards,
+      Tabs,
       Navbar,
     },
     beforeMount() {

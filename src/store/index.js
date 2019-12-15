@@ -9,10 +9,14 @@ export default new Vuex.Store({
     dates: [moment().subtract(1, 'weeks').toDate(), moment().toDate()],
     games: [],
     currentGame: {},
-    currentPlayer: {},
+    currentPlayer: null,
     comparePlayer: {},
+    currentTab: 0,
   },
   mutations: {
+    updateCurrentTab(state, newTab) {
+      state.currentTab = newTab
+    },
     updateCurrentPlayer (state, newPlayer) {
       state.currentPlayer = newPlayer
     },
@@ -48,5 +52,6 @@ export default new Vuex.Store({
     dates: state => state.dates,
     currentPlayer: state => state.currentPlayer,
     comparePlayer: state => state.comparePlayer,
+    currentTab: state => state.currentTab,
   }
 })

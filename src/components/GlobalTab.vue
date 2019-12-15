@@ -2,24 +2,23 @@
   <section class="section">
     <div class="columns">
       <div class="column">
-        <player-search/>
-      </div>
-      <div class="column">
         <game-selector/>
       </div>
       <div class="column">
-        <player-search player-type="comparePlayer"/>
+        <date-selector/>
       </div>
     </div>
+    <game-stats/>
   </section>
 </template>
 
 <script>
-  import PlayerSearch from "./PlayerSearch";
   import GameSelector from "./GameSelector";
+  import DateSelector from "./DateSelector";
+  import GameStats from "./GameStats";
   export default {
-    name: "ComparePlayers",
-    components: {GameSelector, PlayerSearch}
+    name: "GlobalTab",
+    components: {GameStats, DateSelector, GameSelector}
   }
 </script>
 

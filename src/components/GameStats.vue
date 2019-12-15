@@ -1,24 +1,74 @@
 <template>
-  <section class="section">
-    <div class="columns">
-      <div class="column">
-        <game-selector/>
-      </div>
-      <div class="column">
-        <date-selector/>
-      </div>
-    </div>
-    <game-stats-plot/>
-  </section>
+  <GChart
+    v-if="gameStats.length && currentTab === 0"
+    type="LineChart"
+    :data="chartData"
+    :options="chartOptions"
+  />
 </template>
 
 <script>
-  import GameSelector from "./GameSelector";
-  import DateSelector from "./DateSelector";
-  import GameStatsPlot from "./GameStatsPlot";
+  import {mapGetters} from "vuex";
+
   export default {
     name: "GameStats",
-    components: {GameStatsPlot, DateSelector, GameSelector}
+    data() {
+      return {
+        gameStats: [],
+        chartOptions: {
+          chartArea: {
+            width: '100%',
+          },
+          height: 700,
+          title: 'Date vs Users',
+          curveType: 'function',
+          trendlines: {
+            0: {
+              type: 'linear',
+              color: 'red',
+              visibleInLegend: true,
+              labelInLegend: 'Trend',
+              tooltip: false,
+            }
+          },
+          vAxis: {
+            viewWindow: {
+              min: 0,
+            },
+          },
+        },
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'currentGame',
+        'dates',
+        'currentTab',
+      ]),
+      chartData: function () {
+        const data = this.gameStats.map(
+          record => [new Date(record.date), record.users]
+        ).filter(
+          record => record[0] >= this.dates[0] && record[0] <= this.dates[1]
+        );
+        if (!data.length) {
+          return []
+        }
+        return [['Date', 'Users']].concat(data);
+      }
+    },
+    methods: {
+      getGameStats: function () {
+        if (this.currentGame && this.currentGame.id) {
+          this.$http.get(`globalstats?game=${this.currentGame.id}`).then((response) => this.gameStats = response.data)
+        }
+      }
+    },
+    watch: {
+      'currentGame.id': function () {
+        this.getGameStats();
+      }
+    }
   }
 </script>
 
