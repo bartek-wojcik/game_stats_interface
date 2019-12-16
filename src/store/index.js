@@ -9,7 +9,7 @@ export default new Vuex.Store({
     dates: [moment().subtract(1, 'weeks').toDate(), moment().toDate()],
     games: [],
     currentGame: {},
-    currentPlayer: null,
+    currentPlayer: {},
     comparePlayer: {},
     currentTab: 0,
   },

@@ -1,12 +1,12 @@
 <template>
   <b-field label="Search player">
     <b-autocomplete
-      v-model="searchValue"
+      v-model="search"
       placeholder="player nickname"
       :data="players"
       field="nickname"
       @input="refreshPlayers"
-      @select="option => player = option">
+      @select="selectPlayer">
 
       <template slot-scope="props">
         <div class="media">
@@ -39,6 +39,12 @@
       }
     },
     methods: {
+      selectPlayer: function (option) {
+        if (option) {
+          this.player = option
+        }
+        return this.player
+      },
       refreshPlayers: function () {
         if (this.searchValue.length) {
           this.getPlayersByNickname()
@@ -49,6 +55,17 @@
       }
     },
     computed: {
+      search: {
+        get() {
+          if (this.player.id) {
+            return this.player.nickname;
+          }
+          return this.searchValue
+        },
+        set (value) {
+          this.searchValue = value
+        }
+      },
       player: {
         get () {
           return this.$store.state[this.playerType]

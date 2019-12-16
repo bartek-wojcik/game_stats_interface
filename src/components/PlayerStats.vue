@@ -39,10 +39,10 @@
       </div>
     </div>
 
-    <b-message v-if="!currentPlayer" title="Player not selected" type="is-warning" has-icon :closable="false">
+    <b-message v-if="!currentPlayer.id" title="Player not selected" type="is-warning" has-icon :closable="false">
       To show data choose a player
     </b-message>
-    <b-message v-if="currentPlayer && !playerStats.length" title="No data for this player" type="is-warning" has-icon
+    <b-message v-if="currentPlayer.id && !playerStats.length" title="No data for this player" type="is-warning" has-icon
                :closable="false">
       {{currentPlayer.nickname}} has no data for {{currentGame.name}}
     </b-message>
@@ -98,12 +98,12 @@
         return [['Date', 'Playtime']].concat(data);
       },
       lastStats: function () {
-        return this.playerStats.map(playerStats => playerStats.stats).reverse().find(stats => stats.length)
+        return this.playerStats.map(playerStats => playerStats.stats).reverse().find(stats => stats.length).map(stat => { stat.name = stat.name.split('_').join(' '); return stat });
       }
     },
     methods: {
       getPlayerStats: function () {
-        if (this.currentPlayer && this.currentGame && this.currentGame.id) {
+        if (this.currentPlayer.id && this.currentGame.id) {
           this.$http.get(`playerstats?game=${this.currentGame.id}&player=${this.currentPlayer.id}`).then((response) => this.playerStats = response.data)
         }
       }

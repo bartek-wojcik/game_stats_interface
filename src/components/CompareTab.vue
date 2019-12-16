@@ -11,15 +11,18 @@
         <player-search player-type="comparePlayer"/>
       </div>
     </div>
+    <compare-players/>
   </section>
 </template>
 
 <script>
   import PlayerSearch from "./PlayerSearch";
   import GameSelector from "./GameSelector";
+  import ComparePlayers from "./ComparePlayers";
+
   export default {
     name: "CompareTab",
-    components: {GameSelector, PlayerSearch}
+    components: {ComparePlayers, GameSelector, PlayerSearch}
   }
 </script>
 
