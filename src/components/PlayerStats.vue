@@ -64,7 +64,6 @@
         chartOptions: {
           chartArea: {
             top: '5%',
-            width: '100%',
           },
           height: 700,
           title: 'Date vs Playtime',

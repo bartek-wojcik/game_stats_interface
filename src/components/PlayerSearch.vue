@@ -7,6 +7,17 @@
       field="nickname"
       @input="refreshPlayers"
       @select="option => player = option">
+
+      <template slot-scope="props">
+        <div class="media">
+          <div class="media-left">
+            <img width="32" :src="props.option.avatar">
+          </div>
+          <div class="media-content">
+            {{ props.option.nickname }}
+          </div>
+        </div>
+      </template>
     </b-autocomplete>
   </b-field>
 </template>

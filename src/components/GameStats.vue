@@ -16,9 +16,6 @@
       return {
         gameStats: [],
         chartOptions: {
-          chartArea: {
-            width: '100%',
-          },
           height: 700,
           title: 'Date vs Users',
           curveType: 'function',
