@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     dates: [moment().subtract(1, 'weeks').toDate(), moment().toDate()],
     games: [],
+    achievements: [],
     currentGame: {},
     currentPlayer: {},
     comparePlayer: {},
@@ -34,17 +35,26 @@ export default new Vuex.Store({
     },
     updateCurrentGameById (state, id) {
       state.currentGame = state.games.find(game => game.id === id)
+    },
+    updateAchievements (state, achievements) {
+      state.achievements = achievements
     }
   },
   actions: {
-    getGames(context)  {
+    getGames({commit, dispatch})  {
       this._vm.$http.get('games').then((response) => {
-        context.commit('updateGames', response.data);
+        commit('updateGames', response.data);
         if (response.data.length > 0) {
-          context.commit('updateCurrentGame', response.data[0])
+          dispatch('updateGameAndAchievements', response.data[0].id)
         }
       })
-    }
+    },
+    updateGameAndAchievements({commit}, value) {
+      commit('updateCurrentGameById', value);
+      this._vm.$http.get(`achievements?game=${value}`).then((response) => {
+        commit('updateAchievements', response.data);
+      })
+    },
   },
   getters: {
     currentGame: state => state.currentGame,

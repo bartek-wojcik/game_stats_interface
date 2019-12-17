@@ -24,7 +24,7 @@
           return this.$store.state.currentGame.id
         },
         set (value) {
-          this.$store.commit('updateCurrentGameById', value)
+          this.$store.dispatch('updateGameAndAchievements', value);
         }
       },
       ...mapGetters([
