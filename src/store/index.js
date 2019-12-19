@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import moment from 'moment'
-
+moment.defaultFormat = "DD.MM.YYYY HH:mm";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -16,28 +16,29 @@ export default new Vuex.Store({
   },
   mutations: {
     updateCurrentTab(state, newTab) {
-      state.currentTab = newTab
+      state.currentTab = newTab;
     },
     updateCurrentPlayer (state, newPlayer) {
-      state.currentPlayer = newPlayer
+      state.currentPlayer = newPlayer;
     },
     updateComparePlayer (state, newPlayer) {
-      state.comparePlayer = newPlayer
+      state.comparePlayer = newPlayer;
     },
     updateDates (state, newDates) {
-      state.dates = newDates
+      state.dates = newDates;
     },
     updateGames (state, newGames) {
+      newGames.forEach(game => game.peak_date = moment(game.peak_date).format());
       state.games = newGames;
     },
     updateCurrentGame (state, newGame) {
-      state.currentGame = newGame
+      state.currentGame = newGame;
     },
     updateCurrentGameById (state, id) {
-      state.currentGame = state.games.find(game => game.id === id)
+      state.currentGame = state.games.find(game => game.id === id);
     },
     updateAchievements (state, achievements) {
-      state.achievements = achievements
+      state.achievements = achievements.filter(achievement => achievement.global_percent !== 0);
     }
   },
   actions: {
@@ -57,6 +58,7 @@ export default new Vuex.Store({
     },
   },
   getters: {
+    achievements: state => state.achievements,
     currentGame: state => state.currentGame,
     games: state => state.games,
     dates: state => state.dates,

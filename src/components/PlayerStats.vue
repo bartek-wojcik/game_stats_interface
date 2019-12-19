@@ -52,7 +52,6 @@
 
 <script>
   import {mapGetters} from "vuex";
-  import moment from 'moment'
 
   export default {
     name: "PlayerStats",
@@ -88,7 +87,7 @@
       ]),
       chartData: function () {
         const data = this.playerStats.map(
-          record => [new Date(record.date), moment.duration(record.time).asMinutes()]
+          record => [new Date(record.date), this.moment.duration(record.time).asMinutes()]
         ).filter(
           record => record[0] >= this.dates[0] && record[0] <= this.dates[1]
         );

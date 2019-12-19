@@ -6,6 +6,8 @@ import '@mdi/font/css/materialdesignicons.css'
 import VueGoogleCharts from 'vue-google-charts'
 import store from './store'
 import axios from 'axios'
+import moment from 'moment'
+moment.defaultFormat = "DD.MM.YYYY HH:mm";
 
 Vue.use(Buefy, {
   defaultIconPack: 'mdi',
@@ -18,8 +20,10 @@ const base = axios.create({
 });
 
 Vue.prototype.$http = base;
+Vue.prototype.moment = moment;
 
 Vue.use(VueGoogleCharts);
+
 new Vue({
   el: '#app',
   store,
