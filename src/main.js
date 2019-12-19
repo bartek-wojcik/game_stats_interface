@@ -6,9 +6,13 @@ import '@mdi/font/css/materialdesignicons.css'
 import VueGoogleCharts from 'vue-google-charts'
 import store from './store'
 import axios from 'axios'
+import VueLodash from 'vue-lodash'
 import moment from 'moment'
 moment.defaultFormat = "DD.MM.YYYY HH:mm";
 
+
+
+Vue.use(VueLodash);
 Vue.use(Buefy, {
   defaultIconPack: 'mdi',
 });

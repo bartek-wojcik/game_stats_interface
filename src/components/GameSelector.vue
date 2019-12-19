@@ -29,6 +29,7 @@
       },
       ...mapGetters([
         'games',
+        'currentPlayer',
       ]),
     },
   }

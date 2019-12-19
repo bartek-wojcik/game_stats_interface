@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import moment from 'moment'
+
 moment.defaultFormat = "DD.MM.YYYY HH:mm";
 Vue.use(Vuex);
 
@@ -18,31 +19,32 @@ export default new Vuex.Store({
     updateCurrentTab(state, newTab) {
       state.currentTab = newTab;
     },
-    updateCurrentPlayer (state, newPlayer) {
-      state.currentPlayer = newPlayer;
+    updatePlayer(state, newPlayer) {
+      if (newPlayer.playerType === 'comparePlayer') {
+        state.comparePlayer = newPlayer;
+      } else {
+        state.currentPlayer = newPlayer
+      }
     },
-    updateComparePlayer (state, newPlayer) {
-      state.comparePlayer = newPlayer;
-    },
-    updateDates (state, newDates) {
+    updateDates(state, newDates) {
       state.dates = newDates;
     },
-    updateGames (state, newGames) {
+    updateGames(state, newGames) {
       newGames.forEach(game => game.peak_date = moment(game.peak_date).format());
       state.games = newGames;
     },
-    updateCurrentGame (state, newGame) {
+    updateCurrentGame(state, newGame) {
       state.currentGame = newGame;
     },
-    updateCurrentGameById (state, id) {
+    updateCurrentGameById(state, id) {
       state.currentGame = state.games.find(game => game.id === id);
     },
-    updateAchievements (state, achievements) {
+    updateAchievements(state, achievements) {
       state.achievements = achievements.filter(achievement => achievement.global_percent !== 0);
     }
   },
   actions: {
-    getGames({commit, dispatch})  {
+    getGames({commit, dispatch}) {
       this._vm.$http.get('games').then((response) => {
         commit('updateGames', response.data);
         if (response.data.length > 0) {
@@ -50,11 +52,20 @@ export default new Vuex.Store({
         }
       })
     },
-    updateGameAndAchievements({commit}, value) {
+    updateGameAndAchievements({dispatch}, value) {
+      dispatch('updateGame', value);
+      dispatch('updateAchievements');
+    },
+    updateGame({commit}, value) {
       commit('updateCurrentGameById', value);
-      this._vm.$http.get(`achievements?game=${value}`).then((response) => {
+    },
+    updateAchievements({commit, getters}) {
+      this._vm.$http.get(`achievements?game=${getters.currentGame.id}`).then((response) => {
         commit('updateAchievements', response.data);
       })
+    },
+    updatePlayer({commit}, value) {
+      commit('updatePlayer', value);
     },
   },
   getters: {

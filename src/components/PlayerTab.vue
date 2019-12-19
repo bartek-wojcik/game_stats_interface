@@ -12,6 +12,7 @@
       </div>
     </div>
     <player-stats/>
+    <player-achievements/>
   </section>
 </template>
 
@@ -20,10 +21,11 @@
   import DateSelector from "./DateSelector";
   import GameSelector from "./GameSelector";
   import PlayerStats from "./PlayerStats";
+  import PlayerAchievements from "./PlayerAchievements";
 
   export default {
     name: "PlayerTab",
-    components: {PlayerStats, GameSelector, DateSelector, PlayerSearch}
+    components: {PlayerAchievements, PlayerStats, GameSelector, DateSelector, PlayerSearch}
   }
 </script>
 

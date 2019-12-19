@@ -24,6 +24,8 @@
 
 <script>
 
+  import {mapGetters} from "vuex";
+
   export default {
     name: "PlayerSearch",
     props: {
@@ -55,6 +57,9 @@
       }
     },
     computed: {
+      ...mapGetters([
+        'currentGame',
+      ]),
       search: {
         get() {
           if (this.player.id) {
@@ -71,11 +76,8 @@
           return this.$store.state[this.playerType]
         },
         set (value) {
-          if (this.playerType === 'comparePlayer') {
-            this.$store.commit(`updateComparePlayer`, value)
-          } else {
-            this.$store.commit(`updateCurrentPlayer`, value)
-          }
+          value.playerType = this.playerType;
+          this.$store.dispatch('updatePlayer', value);
         }
       },
     },

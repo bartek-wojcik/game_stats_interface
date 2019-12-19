@@ -6,13 +6,11 @@
       :data="chartData"
       :options="chartOptions"
     />
-    <div class="columns" v-if="achievements.length">
-      <div class="column" v-for="(column, index) in columns" :key="index">
-        <div v-for="item in column" :key="item.name">
+    <div class="columns is-multiline" v-if="achievements.length">
+        <div class="column is-narrow" v-for="item in achievements" :key="item.name">
           <achievement :item="item"/>
           <br>
         </div>
-      </div>
     </div>
   </section>
 </template>
@@ -62,14 +60,6 @@
         'currentTab',
         'achievements',
       ]),
-      columns: function () {
-        let columns = [];
-        let mid = Math.ceil(this.achievements.length / this.cols);
-        for (let col = 0; col < this.cols; col++) {
-          columns.push(this.achievements.slice(col * mid, col * mid + mid))
-        }
-        return columns
-      },
       chartData: function () {
         const data = this.gameStats.map(
           record => [new Date(record.date), record.users, this.currentGame.max_users]
