@@ -40,7 +40,7 @@ export default new Vuex.Store({
       state.currentGame = state.games.find(game => game.id === id);
     },
     updateAchievements(state, achievements) {
-      state.achievements = achievements.filter(achievement => achievement.global_percent !== 0);
+      state.achievements = achievements.filter(achievement => achievement.icon !== null);
     }
   },
   actions: {

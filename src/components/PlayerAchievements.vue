@@ -1,9 +1,11 @@
 <template>
-  <div v-if="playerAchievements.length">
+  <div v-if="joinedAchievements.length">
     <div class="columns is-multiline">
-      <div class="column is-narrow" v-for="achievement in playerAchievements" :key="achievement.id">
+      <div class="column is-narrow" v-for="achievement in joinedAchievements" :key="achievement.name">
         <b-tooltip class="full-width" :label="achievement.description" top multilined>
+          <figure class="image is-64x64">
           <img :class="{grey: !achievement.achieved}" :src="achievement.icon"/>
+          </figure>
         </b-tooltip>
       </div>
     </div>
@@ -36,13 +38,20 @@
           return this.$store.state[this.playerType]
         },
       },
+      joinedAchievements: function () {
+        return this._.zipWith(this.playerAchievements, this.achievements, this.merge)
+      }
     },
     methods: {
       merge: (obj1, obj2) => ({...obj1, ...obj2}),
       updatePlayerAchievements: function () {
+        // eslint-disable-next-line no-console
+        console.log(this.currentGame.id);
+        // eslint-disable-next-line no-console
+        console.log(this.player.id);
         if (this.currentGame.id && this.player.id) {
           this.$http.get(`playerachievements?game=${this.currentGame.id}&player=${this.player.id}`).then((response) => {
-            this.playerAchievements = this._.zipWith(response.data, this.achievements, this.merge)
+            this.playerAchievements = response.data
           });
         }
       }
