@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="columns" v-if="playerStats.length">
+    <div class="columns" v-if="chartData.length">
       <div class="column is-four-fifths">
         <GChart
           v-if="currentTab === 1"
@@ -42,7 +42,7 @@
     <b-message v-if="!currentPlayer.id" title="Player not selected" type="is-warning" has-icon :closable="false">
       To show data choose a player
     </b-message>
-    <b-message v-if="currentPlayer.id && !playerStats.length" title="No data for this player" type="is-warning" has-icon
+    <b-message v-if="currentPlayer.id && !chartData.length" title="No data for this player" type="is-warning" has-icon
                :closable="false">
       {{currentPlayer.nickname}} has no data for {{currentGame.name}}
     </b-message>
