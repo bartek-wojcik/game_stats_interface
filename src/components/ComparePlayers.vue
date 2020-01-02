@@ -66,7 +66,7 @@
       aria-current-label="Current page"
     >
       <template slot-scope="props">
-        <b-table-column field="currentPlayer" :label="`Value (${currentPlayer.nickname})`" sortable centered :class="props.row.currentColor">
+        <b-table-column v-if="currentPlayer.id" field="currentPlayer" :label="`Value (${currentPlayer.nickname})`" sortable centered :class="props.row.currentColor">
           {{ props.row.currentPlayer }}
         </b-table-column>
 
@@ -74,7 +74,7 @@
           {{ props.row.name }}
         </b-table-column>
 
-        <b-table-column field="comparePlayer" :label="`Value (${comparePlayer.nickname})`" sortable centered :class="props.row.compareColor">
+        <b-table-column v-if="comparePlayer.id" field="comparePlayer" :label="`Value (${comparePlayer.nickname})`" sortable centered :class="props.row.compareColor">
           {{ props.row.comparePlayer }}
         </b-table-column>
 
