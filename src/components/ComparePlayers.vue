@@ -119,11 +119,14 @@
       },
       getPlayersStats: async function () {
         if (this.currentGame.id) {
-          let stats = {playtime: {}};
+          let stats = {};
 
           for (const playerType of ['currentPlayer', 'comparePlayer']) {
             const data = await this.getPlayerStats(playerType);
             if (data.time) {
+              if (!stats['playtime']) {
+                stats['playtime'] = {}
+              }
               stats['playtime'][playerType] = data.time
             }
             if (data.stats) {

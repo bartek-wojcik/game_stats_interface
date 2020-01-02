@@ -1,5 +1,8 @@
 <template>
   <section>
+    <b-message v-if="currentGame.averagePlaytime" title="Info" type="is-info">
+      Average person spends {{moment.duration(currentGame.averagePlaytime).humanize()}} on this game!
+    </b-message>
     <GChart
       v-if="gameStats.length && currentTab === 0"
       type="LineChart"
