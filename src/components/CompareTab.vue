@@ -1,6 +1,6 @@
 <template>
   <section class="section">
-    <div class="columns is-centered">
+    <div class="columns">
       <div class="column">
         <player-search/>
       </div>

@@ -97,7 +97,7 @@
         return [['Date', 'Playtime']].concat(data);
       },
       lastStats: function () {
-        const statistics = this.playerStats.map(playerStats => playerStats.stats).reverse().find(stats => stats.length)
+        const statistics = this.playerStats.map(playerStats => playerStats.stats).reverse().find(stats => stats.length);
         if (statistics) {
           return statistics.map(stat => { stat.name = stat.name.split('_').join(' '); return stat });
         }

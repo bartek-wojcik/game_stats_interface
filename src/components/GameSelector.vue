@@ -1,6 +1,7 @@
 <template>
   <b-field label="Select a game">
     <b-select
+      expanded
       v-model="currentGameId"
       placeholder="Click to select...">
       <option
