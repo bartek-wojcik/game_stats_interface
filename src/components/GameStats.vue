@@ -1,7 +1,7 @@
 <template>
   <section>
-    <b-message v-if="currentGame.averagePlaytime" title="Info" type="is-info">
-      Average person spends {{moment.duration(currentGame.averagePlaytime).humanize()}} on this game!
+    <b-message v-if="currentGame.average_playtime" title="Average playtime" type="is-info" :closable="false">
+      Average person spends {{duration}} on this game!
     </b-message>
     <GChart
       v-if="gameStats.length && currentTab === 0"
@@ -21,6 +21,7 @@
 <script>
   import {mapGetters} from "vuex";
   import Achievement from "./Achievement";
+  import * as  humanizeDuration from "humanize-duration";
 
   export default {
     name: "GameStats",
@@ -73,6 +74,9 @@
           return []
         }
         return [['Date', 'Users', `Peak ${this.currentGame.peak_date} \n ${this.currentGame.max_users} users`]].concat(data);
+      },
+      duration: function () {
+        return humanizeDuration(this.moment.duration(this.currentGame.average_playtime));
       }
     },
     methods: {
