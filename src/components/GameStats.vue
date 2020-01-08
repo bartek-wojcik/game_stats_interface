@@ -39,6 +39,7 @@
         achievementsOverTime: [],
         achievementsChartOptions: {
           height: 700,
+          pointSize: 3,
           title: 'Hours played vs Achievements collected',
           trendlines: {
             0: {
